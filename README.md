@@ -2,18 +2,20 @@
 
 Production-ready dashboard for monitoring and analyzing UK Wind Generation vs Forecasts using BMRS Elexon API.
 
+![Dashboard Preview](./dashboard.png)
+
 ## Architecture
 
 - **Frontend**: Next.js (App Router), TailwindCSS, Recharts, Lucide React.
-- **Backend**: Node.js, Express, Axios (Data Fetching), Luxon (Time conversion).
+- **Backend (Serverless)**: Next.js API Routes (Integrated into the frontend for seamless Vercel hosting).
 - **Data Source**: BMRS Elexon API v1 (FUELHH for actuals, WINDFOR for forecasts).
 
 ## Project Structure
 
 ```text
 /forecast-monitor-app
-    /frontend        - Next.js Web App
-    /backend         - Express API Server
+    /frontend        - Next.js Web App (including API routes)
+    /backend         - Legacy Express API Server (Optional)
     /analysis        - Jupyter Notebook for Wind Data Analysis
 ```
 
@@ -27,20 +29,7 @@ Production-ready dashboard for monitoring and analyzing UK Wind Generation vs Fo
 
 ## Setup Instructions
 
-### 1. Backend
-
-1. Navigate to the `backend` directory.
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the server:
-   ```bash
-   node index.js
-   ```
-   The backend runs on `http://localhost:5000`.
-
-### 2. Frontend
+### Local Development
 
 1. Navigate to the `frontend` directory.
 2. Install dependencies:
@@ -51,14 +40,16 @@ Production-ready dashboard for monitoring and analyzing UK Wind Generation vs Fo
    ```bash
    npm run dev
    ```
-   The frontend runs on `http://localhost:3000`. Open it in your browser.
+4. The dashboard runs on `http://localhost:3000`.
 
 ## Deployment
 
-- **Frontend**: Deploy to Vercel. 
-  - Ensure `NEXT_PUBLIC_API_URL` environment variable points to your deployed backend.
-- **Backend**: Deploy to Render or Heroku.
-  - Set `PORT` environment variable.
+### Vercel (Recommended)
+
+1. Connect your Github repository to [Vercel](https://vercel.com).
+2. Set the **Root Directory** to `frontend`.
+3. Vercel will automatically detect Next.js and deploy both the UI and the API Routes.
+4. No additional environment variables are strictly required for the public BMRS API, but you can set `NODE_ENV` if needed.
 
 ## AI Tools Used
 
@@ -69,3 +60,4 @@ Production-ready dashboard for monitoring and analyzing UK Wind Generation vs Fo
 The `/analysis/wind_analysis.ipynb` contains:
 - **Forecast Error Analysis**: MAE, Median, P99, error correlation with horizon/time.
 - **Wind Reliability Analysis**: Percentile generation, minimum dependable capacity.
+
