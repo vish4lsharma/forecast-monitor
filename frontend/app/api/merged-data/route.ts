@@ -65,20 +65,20 @@ export async function GET(req: NextRequest) {
 
     // Group forecasts by target startTime
     const forecastByTarget: Record<string, any[]> = {};
-    forecastsData.forEach(f => {
+    forecastsData.forEach((f: any) => {
         if (!forecastByTarget[f.startTime]) {
             forecastByTarget[f.startTime] = [];
         }
         forecastByTarget[f.startTime].push(f);
     });
 
-    let merged = actualsData.map(actual => {
+    let merged = actualsData.map((actual: any) => {
         const targetTime = DateTime.fromISO(actual.startTime);
         const horizonLimit = targetTime.minus({ hours: horizon });
 
         const validForecasts = (forecastByTarget[actual.startTime] || [])
-            .filter(f => DateTime.fromISO(f.publishTime) <= horizonLimit)
-            .sort((a, b) => DateTime.fromISO(b.publishTime).toMillis() - DateTime.fromISO(a.publishTime).toMillis());
+            .filter((f: any) => DateTime.fromISO(f.publishTime) <= horizonLimit)
+            .sort((a: any, b: any) => DateTime.fromISO(b.publishTime).toMillis() - DateTime.fromISO(a.publishTime).toMillis());
 
         if (validForecasts.length === 0) return null;
 
@@ -88,7 +88,7 @@ export async function GET(req: NextRequest) {
             forecast: validForecasts[0].generation,
             horizon: horizon
         };
-    }).filter(item => item !== null);
+    }).filter((item: any) => item !== null);
 
     // FALLBACK: If no data from API, generate some realistic mock data for January 2024
     if (merged.length === 0) {
@@ -107,7 +107,7 @@ export async function GET(req: NextRequest) {
 
     let filtered = merged;
     if (startParam || endParam) {
-        filtered = merged.filter(item => {
+        filtered = merged.filter((item: any) => {
             const time = DateTime.fromISO(item.targetTime!);
             if (startParam && time < DateTime.fromISO(startParam)) return false;
             if (endParam && time > DateTime.fromISO(endParam)) return false;
