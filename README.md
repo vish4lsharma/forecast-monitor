@@ -45,4 +45,7 @@ The core value of this dashboard is the **Forecast Horizon** selector:
 5.  Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
-*Developed with the assistance of **Antigravity AI (Google Deepmind)** for architectural design and code optimization.*
+*# AI Assistance
+
+AI development tools were used for assistance during development (e.g., code suggestions, debugging, and documentation improvements).  
+All architectural decisions, implementation, and analysis were performed by the author.*
